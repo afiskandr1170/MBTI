@@ -1,7 +1,3 @@
-from IPython.display import Image
-Image(filename='hasil.jpg')
-
-
 from tweepy import Stream
 from tweepy import OAuthHandler
 from tweepy.streaming import StreamListener
