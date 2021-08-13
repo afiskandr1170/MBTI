@@ -1,3 +1,5 @@
+from IPython.display import Image
+Image(filename='hasil.jpg')
 
 
 from tweepy import Stream
@@ -11,6 +13,9 @@ import string
 from sklearn.feature_extraction.text import TfidfVectorizer
 import pandas as pd
 from sklearn import preprocessing
+
+
+# In[4]:
 
 
 #menghitung jumlah karakter 
@@ -43,7 +48,7 @@ def hitung_quotes(kalimat):
     return int((s+t)/2)
 
 
-## API TWITTER
+
 consumer_key = "NUigVZ9PCy5PDjeLRXqWwb29Y"
 consumer_secret = "x4hXJCmucIOXJLoPf4HXtqlrpfUrZNVpl7D6coaqKrVK0DwFGI"
 access_token = "229820253-9iXCsJfbKt3QZsPOIPBCEqJs8uG9RIz3IkluQlRZ"
@@ -52,6 +57,8 @@ OAUTH_KEYS = {'consumer_key':consumer_key, 'consumer_secret':consumer_secret,
               'access_token_key':access_token, 'access_token_secret':access_token_secret}
 auth = tweepy.OAuthHandler(OAUTH_KEYS['consumer_key'], OAUTH_KEYS['consumer_secret'])
 api = tweepy.API(auth)
+
+
 
 
 
@@ -66,6 +73,7 @@ image_folder = os.path.join('static', 'images')
 
 
 
+
 import pickle
 import os
 vectorize=pickle.load(open("model/TFIDF.pkl", "rb"))
@@ -74,6 +82,8 @@ modelNS=pickle.load(open("model/KNN7_NS.pkl", "rb"))
 modelTF=pickle.load(open("model/KNN9_TF.pkl", "rb"))
 modelJP=pickle.load(open("model/KNN9_JP.pkl", "rb"))
 
+
+# In[8]:
 
 
 def proses_data(username):
@@ -84,6 +94,7 @@ def proses_data(username):
     sample='Data yang diambil : '+str(len(tweets_data))
     data = pd.DataFrame(tweets_data,columns=['text'])
     data['username']=username
+    df=data[['username','text']]
 
     data['txt_cunq']= data['text'].apply(lambda x: hitung_karakter(str(x)))
     data['txt_word']= data['text'].apply(lambda x: hitung_kata(str(x)))
@@ -174,7 +185,7 @@ def proses_data(username):
         KepribadianJP='P'
 
     kepribadian=KepribadianIE+KepribadianNS+KepribadianTF+KepribadianJP
-    return sample,kepribadian
+    return sample,kepribadian,df
 
 
 # In[ ]:
@@ -189,7 +200,7 @@ def proses_data(username):
 
 
 
-# In[8]:
+# In[9]:
 
 
 # Initialize App
@@ -205,7 +216,7 @@ def index():
     return render_template('index.html',imagehome=imagehome,imagehasil=kosong,pic=kosong)
 
 
-# In[9]:
+# In[10]:
 
 
 def hasilkepribadian(kepribadian):
@@ -273,7 +284,7 @@ def analyze():
     if request.method == 'POST':
         username = str(request.form['username'])
         
-        sample,kepribadian=proses_data(username)
+        sample,kepribadian,df=proses_data(username)
         
         test = api.lookup_users(screen_names=[username])
         for user in test:
@@ -287,11 +298,11 @@ def analyze():
     return render_template('index.html',username=username,nama=nama,description='"'+str(description)+'"',hasilkepribadian='Kepribadian MBTI kamu adalah '+kepribadian,
                            sample=sample,
                            sambutannama='Hai, "'+str(nama)+'"',katahasil=katahasil,
-                          pic=pic,imagehome=imagehome,imagehasil=imagehasil)
+                          pic=pic,imagehome=imagehome,imagehasil=imagehasil,
+                           tables=[df.to_html(classes='data')], titles=df.columns.values)
 
-
-# In[ ]:
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True,use_reloader=False)
+    #app.run(host='0.0.0.0',port=8080)
