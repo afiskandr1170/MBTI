@@ -47,6 +47,7 @@
           <div class="col-lg-7">
             <img src="{{imagehasil}}" alt="Image" class="img-fluid">
           </div>
+
           <div class="col-lg-5 pl-lg-5 ml-auto mt-md-5">
             <h2 class="text-black">{{sambutannama}}</h2>
             <div class="author-box">
@@ -60,11 +61,28 @@
                 </div>
               </div>
               <blockquote>{{description}}</blockquote>
-              <p>{{sample}}</p> </br> </br>
+              <p>{{sample}}</p>
+              </br> </br>
               <h2>{{hasilkepribadian}}</h1>
               <p>{{katahasil}}</p>
+              </br>
+
             </div>
           </div>
+        </div>
+      </div>
+    </div>
+
+
+
+    <div class="feature-big">
+      <div class="container">
+        <div class="row mb-5 site-section border-bottom">
+          <p>Data tweet yang diambil sebagai berikut:</p></br>
+                {% for table in tables %}
+                {{titles[loop.index]}}
+                {{ table|safe }}
+                {% endfor %}
         </div>
       </div>
     </div>
