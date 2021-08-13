@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>MBTI Prediction &mdash; Ahmad Fikri Iskandar</title>
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,700" rel="stylesheet">
+    <link rel="stylesheet" href="static/fonts/icomoon/style.css">
+    <link rel="stylesheet" href="static/css/bootstrap.min.css">  
+  </head>
+
+
+
+  <body>
+    <div class="col-12 text-center mb-4 mt-5">
+      <h1>MBTI personality trait  profiling using Social Media Twitter<span class="text-primary">.</span></h1>
+    </div>
+      
+
+<div class="feature-big">
+   <div class="container">
+    <div class="row mb-5 site-section border-bottom">
+      <div class="col-lg-7">
+        <img src="{{imagehome}}"" alt="Image" class="img-fluid">
+      </div>
+      <div class="col-lg-5 pl-lg-5 ml-auto mt-md-5">
+        <h1 class="text-black">MBTI Prediction</h1>
+        <h3>Ikuti Tes Kepribadian tanpa harus mengisi kuesioner.</h3>
+        <p> Data yang digunakan berdasarkan sosial media Twitter anda </p></br>
+        <form method="POST" action="/analyze" class="mb-5">
+          <div class="rcol-lg-5 ml-auto pl-lg-5">
+            <label class="text-black" for="fname">Masukan Username Twitter (mohon tidak dikunci)</label>
+            <input type="text" class="form-control rounded-0" name='username' id="tweetText" placeholder="Masukan username Twitter"></br>
+            <button class="tn btn-primary mr-2 mb-2" type="submit" onclick="showDiv()">Check Your Personality</button>
+          </div>
+      </div>
+    </div>
+   
+   </div>
+</div>
+
+
+
+
+
+    <div class="feature-big">
+      <div class="container">
+        <div class="row mb-5 site-section border-bottom">
+          <div class="col-lg-7">
+            <img src="{{imagehasil}}" alt="Image" class="img-fluid">
+          </div>
+          <div class="col-lg-5 pl-lg-5 ml-auto mt-md-5">
+            <h2 class="text-black">{{sambutannama}}</h2>
+            <div class="author-box">
+              <div class="d-flex mb-4">
+                <div class="mr-3">
+                  <img src="{{pic}}" alt="Image" class="img-fluid rounded-circle">
+                </div>
+                <div class="mr-auto text-black">
+                  <strong class="font-weight-bold mb-0">{{username}}</strong> <br>
+                  {{nama}}
+                </div>
+              </div>
+              <blockquote>{{description}}</blockquote>
+              <p>{{sample}}</p> </br> </br>
+              <h2>{{hasilkepribadian}}</h1>
+              <p>{{katahasil}}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+
+
+          
+
+    
+  </body>
+</html>
