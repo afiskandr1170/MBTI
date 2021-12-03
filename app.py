@@ -1,7 +1,7 @@
 
 from tweepy import Stream
 from tweepy import OAuthHandler
-#from tweepy.streaming import StreamListener
+from tweepy.streaming import StreamListener
 import tweepy
 import numpy as np
 import re
